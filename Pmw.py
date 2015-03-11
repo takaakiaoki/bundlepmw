@@ -1,16 +1,16 @@
 
-import PmwColor
+from . import PmwColor
 Color = PmwColor
 del PmwColor
 
-import PmwBlt
+from . import PmwBlt
 Blt = PmwBlt
 del PmwBlt
 
 
 ### Loader functions:
 
-_VERSION = ''
+_VERSION = '2.0.0'
 
 def setversion(version):
     if version != _VERSION:
