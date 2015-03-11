@@ -71,14 +71,14 @@ version = dir[4:].replace('_', '.')
 
 # Code to import the Color module.
 colorCode = """
-import PmwColor
+from . import PmwColor
 Color = PmwColor
 del PmwColor
 """
 
 # Code to import the Blt module.
 bltCode = """
-import PmwBlt
+from . import PmwBlt
 Blt = PmwBlt
 del PmwBlt
 """
