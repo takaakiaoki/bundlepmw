@@ -121,13 +121,13 @@ if '-nocolor' in sys.argv:
     needColor = 0
 
 if len(sys.argv) != 2:
-    print 'usage: bundlepmw.py [-noblt] [-nocolor] /path/to/Pmw/Pmw_X_X_X/lib'
+    print('usage: bundlepmw.py [-noblt] [-nocolor] /path/to/Pmw/Pmw_X_X_X/lib')
     sys.exit()
 
 srcdir = sys.argv[1]
 
 if os.path.exists('Pmw.py'):
-    print 'Pmw.py already exists. Remove it and try again.'
+    print('Pmw.py already exists. Remove it and try again.')
     sys.exit()
 
 outfile = open('Pmw.py', 'w')
@@ -153,12 +153,12 @@ for file in files:
     text = mungeFile(file)
     outfile.write(text)
 
-print ''
-print '   Pmw.py has been created.'
+print('')
+print('   Pmw.py has been created.')
 
 if needColor or needBlt:
-    print '   Before running freeze, also copy the following file(s):'
+    print('   Before running freeze, also copy the following file(s):')
     if needBlt:
-        print '   ' + os.path.join(srcdir, 'PmwBlt.py')
+        print('   ' + os.path.join(srcdir, 'PmwBlt.py'))
     if needColor:
-        print '   ' + os.path.join(srcdir, 'PmwColor.py') 
+        print('   ' + os.path.join(srcdir, 'PmwColor.py'))
