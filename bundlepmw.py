@@ -32,6 +32,7 @@ needColor = 1
 # Set this to 0 if you do not use any of the Pmw.Blt functions:
 needBlt = 1
 
+
 def expandLinks(path):
     if not os.path.isabs(path):
         path = os.path.join(os.getcwd(), path)
@@ -43,14 +44,15 @@ def expandLinks(path):
 
     return path
 
+
 def mungeFile(file):
     # Read the file and modify it so that it can be bundled with the
     # other Pmw files.
     file = 'Pmw' + file + '.py'
     text = open(os.path.join(srcdir, file)).read()
-    text = re.sub('import Pmw\>', '', text)
+    text = re.sub(r'import Pmw\b', '', text)
     text = re.sub('INITOPT = Pmw.INITOPT', '', text)
-    text = re.sub('\<Pmw\.', '', text)
+    text = re.sub(r'\bPmw\.', '', text)
     text = '\n' + ('#' * 70) + '\n' + '### File: ' + file + '\n' + text
     return text
 
@@ -73,17 +75,20 @@ import PmwColor
 Color = PmwColor
 del PmwColor
 """
+
 # Code to import the Blt module.
 bltCode = """
 import PmwBlt
 Blt = PmwBlt
 del PmwBlt
 """
+
 # Code used when not linking with PmwBlt.py.
 ignoreBltCode = """
 _bltImported = 1
 _bltbusyOK = 0
 """
+
 # Code to define the functions normally supplied by the dynamic loader.
 extraCode = """
 
@@ -112,6 +117,7 @@ def installedversions(alpha = 0):
         return (_VERSION,)
 
 """
+
 if '-noblt' in sys.argv:
     sys.argv.remove('-noblt')
     needBlt = 0
@@ -142,7 +148,7 @@ outfile.write(extraCode % version)
 
 # Specially handle PmwBase.py file:
 text = mungeFile('Base')
-text = re.sub('import PmwLogicalFont', '', text)
+text = re.sub('from \. import PmwLogicalFont', '', text)
 text = re.sub('PmwLogicalFont._font_initialise', '_font_initialise', text)
 outfile.write(text)
 if not needBlt:
